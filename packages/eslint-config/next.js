@@ -18,7 +18,7 @@ module.exports = {
     node: true,
     browser: true,
   },
-  plugins: ["only-warn"],
+  plugins: ["only-warn", "prettier"],
   settings: {
     "import/resolver": {
       typescript: {
@@ -32,4 +32,7 @@ module.exports = {
     "node_modules/",
   ],
   overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
+  rules: {
+    "prettier/prettier": ["error"]
+  },
 };
