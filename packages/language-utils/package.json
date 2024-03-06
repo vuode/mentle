@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./numerals": "./src/numerals/index.ts"
+    "./numerals": "./src/numerals/index.ts",
+    "./sentences": "./src/sentences/index.ts"
   },
   "scripts": {
     "dev": "echo 'Add dev script here'",
