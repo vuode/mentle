@@ -1,7 +1,7 @@
 import { getSentenceConfig, subjects, verbs } from ".";
 import { toNumeralString } from "../numerals";
 
-const getRandomElement = <T extends any>(array: T[]) => {
+const getRandomElement = <T extends object | string>(array: T[]) => {
   const length = array.length;
   const index = Math.floor(Math.random() * length);
 
