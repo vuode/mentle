@@ -36,8 +36,8 @@ export const toNumeralString = (
 
     if (ones === 0) return tensPart;
 
-    const onesCase = num === 1 ? "nom" : grCase;
-    const onesGender = num === 1 ? "m" : nonPersonalGender;
+    const onesCase = ones === 1 ? "nom" : grCase;
+    const onesGender = ones === 1 ? "m" : nonPersonalGender;
 
     const onesPart = toNumeralString(ones, onesCase, onesGender);
 
