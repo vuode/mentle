@@ -64,11 +64,12 @@ export const getSentenceConfig = (count: number, grGender: SubjectGender) => {
 
   if (count === 1) return [singularConfig] as const;
 
-  if (personal && countInRange2to4)
-    return [basePersonalConfig, alternativeConfig] as const;
+  if (personal)
+    return countInRange2to4
+      ? ([basePersonalConfig, alternativeConfig] as const)
+      : ([basePersonalConfig] as const);
 
-  if (!personal && countEnds2to4 && !countInTeens)
-    return [alternativeConfig] as const;
+  if (countEnds2to4 && !countInTeens) return [alternativeConfig] as const;
 
   return [baseNonPersonalConfig] as const;
 };
