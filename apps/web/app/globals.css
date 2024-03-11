@@ -4,6 +4,9 @@
 
 @import "@repo/ui/styles";
 
-body {
-  height: 100vh;
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: 100vh;
+    max-height: -webkit-fill-available !important;
+  }
 }
