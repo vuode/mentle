@@ -385,7 +385,7 @@ export const verbs: VerbsCollection = {
       f: "czytała",
       nmp: "czytały",
       mp: "czytali",
-      rest: "książkę",
+      after: "książkę",
     },
     {
       base: "jechać",
@@ -394,7 +394,7 @@ export const verbs: VerbsCollection = {
       f: "jechała",
       nmp: "jechały",
       mp: "jechali",
-      rest: "pociągiem",
+      after: "pociągiem",
     },
     {
       base: "siedzieć",
@@ -403,7 +403,7 @@ export const verbs: VerbsCollection = {
       f: "siedziała",
       nmp: "siedziały",
       mp: "siedzieli",
-      rest: "na krzesłach",
+      after: "na krzesłach",
     },
     {
       base: "pisać",
@@ -412,7 +412,7 @@ export const verbs: VerbsCollection = {
       f: "pisała",
       nmp: "pisały",
       mp: "pisali",
-      rest: "list",
+      after: "list",
     },
     {
       base: "bawić się",
@@ -421,7 +421,7 @@ export const verbs: VerbsCollection = {
       f: "bawiła się",
       nmp: "bawiły się",
       mp: "bawili się",
-      rest: "z kotem i psem",
+      after: "z kotem i psem",
     },
     {
       base: "odkurzać",
@@ -430,7 +430,7 @@ export const verbs: VerbsCollection = {
       f: "odkurzała",
       nmp: "odkurzały",
       mp: "odkurzali",
-      rest: "pokój",
+      after: "pokój",
     },
     {
       base: "oglądać",
@@ -439,7 +439,7 @@ export const verbs: VerbsCollection = {
       f: "oglądała",
       nmp: "oglądały",
       mp: "oglądali",
-      rest: "film",
+      after: "film",
     },
     {
       base: "słuchać",
@@ -448,7 +448,7 @@ export const verbs: VerbsCollection = {
       f: "słuchała",
       nmp: "słuchały",
       mp: "słuchali",
-      rest: "muzyki",
+      after: "muzyki",
     },
     {
       base: "być",
@@ -457,7 +457,7 @@ export const verbs: VerbsCollection = {
       f: "była",
       nmp: "były",
       mp: "byli",
-      rest: "pod drzwiami",
+      after: "pod drzwiami",
     },
   ],
   electronics: [
@@ -467,7 +467,7 @@ export const verbs: VerbsCollection = {
       m: "zużywał",
       f: "zużywała",
       nmp: "zużywały",
-      rest: "dużo prądu",
+      after: "dużo prądu",
     },
     {
       base: "włączać się",
@@ -475,7 +475,7 @@ export const verbs: VerbsCollection = {
       m: "włączał się",
       f: "włączała się",
       nmp: "włączały się",
-      rest: "zbyt długo",
+      before: "zbyt długo",
     },
     {
       base: "wyłączyć się",
@@ -483,7 +483,7 @@ export const verbs: VerbsCollection = {
       m: "włączył się",
       f: "włączyła się",
       nmp: "włączyły się",
-      rest: "nagle",
+      before: "nagle",
     },
     {
       base: "spalić się",
@@ -491,7 +491,6 @@ export const verbs: VerbsCollection = {
       m: "spalił się",
       f: "spaliła się",
       nmp: "spaliły się",
-      rest: "",
     },
   ],
   furniture: [
@@ -501,7 +500,7 @@ export const verbs: VerbsCollection = {
       m: "stał",
       f: "stała",
       nmp: "stały",
-      rest: "na środku pokoju",
+      after: "na środku pokoju",
     },
     {
       base: "służyć",
@@ -509,7 +508,7 @@ export const verbs: VerbsCollection = {
       m: "służył",
       f: "służyła",
       nmp: "służyły",
-      rest: "do przechowywania ubrań",
+      after: "do przechowywania ubrań",
     },
     {
       base: "wyglądać",
@@ -517,7 +516,7 @@ export const verbs: VerbsCollection = {
       m: "wyglądał",
       f: "wyglądała",
       nmp: "wyglądały",
-      rest: "brzydko",
+      before: "brzydko",
     },
   ],
   transport: [
@@ -527,7 +526,7 @@ export const verbs: VerbsCollection = {
       m: "zahamował",
       f: "zahamowała",
       nmp: "zahamowały",
-      rest: "gwałtownie",
+      before: "gwałtownie",
     },
     {
       base: "zbliżać się",
@@ -535,7 +534,7 @@ export const verbs: VerbsCollection = {
       m: "zbliżał się",
       f: "zbliżała się",
       nmp: "zbliżały się",
-      rest: "do miasta",
+      after: "do miasta",
     },
     {
       base: "zwalniać",
@@ -543,7 +542,6 @@ export const verbs: VerbsCollection = {
       m: "zwalniał",
       f: "zwalniała",
       nmp: "zwalniały",
-      rest: "",
     },
     {
       base: "zatrzymać się",
@@ -551,7 +549,6 @@ export const verbs: VerbsCollection = {
       m: "zatrzymał się",
       f: "zatrzymała się",
       nmp: "zatrzymały się",
-      rest: "",
     },
   ],
   small: [
@@ -561,7 +558,7 @@ export const verbs: VerbsCollection = {
       m: "leżał",
       f: "leżała",
       nmp: "leżały",
-      rest: "na biurku",
+      after: "na biurku",
     },
     {
       base: "zniknąć",
@@ -569,7 +566,6 @@ export const verbs: VerbsCollection = {
       m: "zniknął",
       f: "zniknęła",
       nmp: "zniknęły",
-      rest: "",
     },
     {
       base: "kosztować",
@@ -577,7 +573,7 @@ export const verbs: VerbsCollection = {
       m: "kosztował",
       f: "kosztowała",
       nmp: "kosztowały",
-      rest: "300 złotych",
+      after: "300 złotych",
     },
     {
       base: "trafić",
@@ -585,7 +581,7 @@ export const verbs: VerbsCollection = {
       m: "trafił",
       f: "trafiła",
       nmp: "trafiły",
-      rest: "w głowę",
+      after: "w głowę",
     },
   ],
 };

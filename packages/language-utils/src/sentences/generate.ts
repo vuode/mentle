@@ -5,27 +5,13 @@ const getRandomElement = <T extends object | string>(array: T[]) => {
   const length = array.length;
   const index = Math.floor(Math.random() * length);
 
-  return array[index];
+  return array[index] as T;
 };
 
 export const generateRandomSentence = (num: number, grGender: "nmp" | "mp") => {
   const subject = getRandomElement(subjects[grGender]);
-
-  if (!subject) {
-    return null;
-  }
-
   const category = getRandomElement(subject.categories);
-
-  if (!category) {
-    return null;
-  }
-
   const verb = getRandomElement(verbs[category]);
-
-  if (!verb) {
-    return null;
-  }
 
   const [config, altConfig] = getSentenceConfig(num, subject.gender);
 
@@ -33,14 +19,16 @@ export const generateRandomSentence = (num: number, grGender: "nmp" | "mp") => {
     num,
     subject: subject.nomSg,
     verb: verb.base,
-    rest: verb.rest,
+    before: verb.before,
+    after: verb.after,
   };
 
   const sentence = {
     num: toNumeralString(num, config.numeral.grCase, config.numeral.grGender),
     subject: subject[config.subject],
     verb: verb[config.verb] ?? "___",
-    rest: verb.rest,
+    before: verb.before,
+    after: verb.after,
   };
 
   const altSentence = altConfig
@@ -52,7 +40,8 @@ export const generateRandomSentence = (num: number, grGender: "nmp" | "mp") => {
         ),
         subject: subject[altConfig.subject],
         verb: verb[altConfig.verb] ?? "___",
-        rest: verb.rest,
+        before: verb.before,
+        after: verb.after,
       }
     : null;
 

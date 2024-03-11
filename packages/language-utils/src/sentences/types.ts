@@ -17,6 +17,7 @@ export interface Subject extends Record<SubjectGrammarCategory, string> {
 
 export interface Verb extends Record<VerbGrammarCategory, string> {
   base: string;
-  rest: string;
+  before?: string;
+  after?: string;
   mp?: string;
 }
