@@ -19,7 +19,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
   return (
     <article
       className={cn(
-        "p-4 h-full bg-white border border-gray-200 shadow rounded-xl",
+        "p-4 h-full bg-white border border-gray-200 shadow rounded-xl overflow-hidden",
         className,
       )}
     >
