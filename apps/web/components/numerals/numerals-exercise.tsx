@@ -3,7 +3,7 @@ import { Config } from "../../data/numeral-categories";
 import { generateRandomSentence } from "@repo/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
-import { ProgressBar } from "../progress-bar";
+import { ProgressBar } from "@repo/ui/progress-bar";
 import { IconButton } from "@repo/ui/button";
 
 interface NumeralsExerciseProps {
@@ -42,32 +42,39 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
 
   return (
     <div className="h-full flex flex-col justify-between">
-      <div className="h-[10%] flex flex-col justify-between">
-        <button
-          className="flex items-center text-blue-600"
-          onClick={() => onFinish()}
-        >
-          <ArrowLeft />
-        </button>
-        <div className="flex items-center">
-          <ProgressBar element={currentIndex} total={config.length} />
-          <div className="ml-2">
-            {currentIndex + 1}/{config.length}
+      <div className="flex flex-col">
+        <div className="mb-4 flex justify-between items-center">
+          <button
+            className="flex items-center text-blue-600"
+            onClick={() => onFinish()}
+          >
+            <ArrowLeft />
+          </button>
+          <div>
+            {currentIndex + 1} / {config.length}
           </div>
         </div>
+
+        <ProgressBar currentIndex={currentIndex} length={config.length} />
       </div>
+
+      <div className="font-semibold text-center">
+        Użyj podanych słów, aby stworzyć zdanie w czasie przeszłym:
+      </div>
+
       <NumeralsCard
         className="h-2/3"
         exercise={current.exercise}
         showAnswer={showAnswer}
       />
-      <div className="h-[10%] flex justify-around items-center">
+      <div className="flex justify-around items-center">
         {showAnswer ? (
           <IconButton
             onClick={() => {
               setCurrentIndex((previous) => previous + 1);
               setShowAnswer(false);
             }}
+            size="large"
           >
             <ArrowRight />
           </IconButton>
@@ -76,7 +83,6 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
             onClick={() => {
               setShowAnswer(true);
             }}
-            color="blue"
             size="large"
           >
             <Eye />
