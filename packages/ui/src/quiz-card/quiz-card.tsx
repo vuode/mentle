@@ -1,6 +1,8 @@
+import { cn } from "../utils";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface QuizCardProps {
+  className?: string;
   key: React.Key;
   question: React.ReactNode;
   answer: React.ReactNode;
@@ -8,13 +10,19 @@ interface QuizCardProps {
 }
 
 export const QuizCard: React.FC<QuizCardProps> = ({
+  className,
   key,
   question,
   answer,
   showAnswer,
 }) => {
   return (
-    <article className="p-4 h-full bg-white border border-gray-200 shadow rounded-xl">
+    <article
+      className={cn(
+        "p-4 h-full bg-white border border-gray-200 shadow rounded-xl",
+        className,
+      )}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={key}
