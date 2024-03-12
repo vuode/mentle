@@ -4,7 +4,7 @@ import { generateRandomSentence } from "@repo/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
 import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
 import { ProgressBar } from "@repo/ui/progress-bar";
-import { IconButton } from "@repo/ui/button";
+import { Button } from "@repo/ui/button";
 
 interface NumeralsExerciseProps {
   config: Config[];
@@ -44,12 +44,9 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
     <div className="h-full flex flex-col justify-between">
       <div className="flex flex-col">
         <div className="mb-4 flex justify-between items-center">
-          <button
-            className="flex items-center text-blue-600"
-            onClick={() => onFinish()}
-          >
+          <Button size="icon" variant="ghost" onClick={() => onFinish()}>
             <ArrowLeft />
-          </button>
+          </Button>
           <div>
             {currentIndex + 1} / {config.length}
           </div>
@@ -69,24 +66,28 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
       />
       <div className="flex justify-around items-center">
         {showAnswer ? (
-          <IconButton
+          <Button
             onClick={() => {
               setCurrentIndex((previous) => previous + 1);
               setShowAnswer(false);
             }}
-            size="large"
+            className="rounded-full"
+            size="icon"
+            variant="blue"
           >
             <ArrowRight />
-          </IconButton>
+          </Button>
         ) : (
-          <IconButton
+          <Button
             onClick={() => {
               setShowAnswer(true);
             }}
-            size="large"
+            className="rounded-full"
+            size="icon"
+            variant="blue"
           >
             <Eye />
-          </IconButton>
+          </Button>
         )}
       </div>
     </div>
