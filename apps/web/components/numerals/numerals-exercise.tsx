@@ -56,9 +56,11 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
           </div>
         </div>
       </div>
-      <div className="h-2/3">
-        <NumeralsCard exercise={current.exercise} showAnswer={showAnswer} />
-      </div>
+      <NumeralsCard
+        className="h-2/3"
+        exercise={current.exercise}
+        showAnswer={showAnswer}
+      />
       <div className="h-[10%] flex justify-around items-center">
         {showAnswer ? (
           <IconButton

@@ -4,6 +4,7 @@ import { QuizCard } from "@repo/ui/quiz-card";
 type Exercise = Exclude<ReturnType<typeof generateRandomSentence>, null>;
 
 interface NumeralsCardProps {
+  className?: string;
   exercise: Exercise;
   showAnswer: boolean;
 }
@@ -24,6 +25,7 @@ const QATemplate: React.FC<QATemplateProps> = ({ sentence }) => (
 );
 
 export const NumeralsCard: React.FC<NumeralsCardProps> = ({
+  className,
   exercise,
   showAnswer,
 }) => {
@@ -31,6 +33,7 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
 
   return (
     <QuizCard
+      className={className}
       key={JSON.stringify(base)}
       question={<QATemplate sentence={base} />}
       answer={<QATemplate sentence={sentence} />}
