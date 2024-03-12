@@ -12,7 +12,8 @@
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./number-input": "./src/number-input.tsx",
-    "./quiz-card": "./src/quiz-card/index.ts"
+    "./quiz-card": "./src/quiz-card/index.ts",
+    "./progress-bar": "./src/progress-bar/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
