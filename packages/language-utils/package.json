@@ -12,6 +12,9 @@
     "test": "echo 'Add test script here'",
     "lint": "echo 'Add lint script here'"
   },
+  "dependencies": {
+    "@repo/utils": "*"
+  },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*"
