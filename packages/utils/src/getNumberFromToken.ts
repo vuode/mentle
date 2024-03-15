@@ -18,7 +18,7 @@ export const getNumberFromToken = (
   if (options?.range) {
     const { from, to, exclude } = options.range;
 
-    const length = to - from + 1;
+    const length = to - (from + 1);
 
     if (exclude) {
       const range = Array.from({ length }).flatMap((_value, index) => {
@@ -30,7 +30,7 @@ export const getNumberFromToken = (
       return range[hash % range.length] as number;
     }
 
-    return (hash % length) + from - 1;
+    return (hash % length) + from;
   }
 
   return hash;
