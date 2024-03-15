@@ -2,26 +2,27 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "../utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  "ui-inline-flex ui-items-center ui-justify-center ui-rounded-md ui-text-sm ui-font-medium ui-transition-colors focus-visible:ui-outline-none focus-visible:ui-ring-2 focus-visible:ui-ring-ring focus-visible:ui-ring-offset-2 disabled:ui-opacity-50 disabled:ui-pointer-events-none ui-ring-offset-background",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        blue: "bg-blue-500 text-primary-foreground hover:bg-blue-500/90",
+        default:
+          "ui-bg-primary ui-text-primary-foreground hover:ui-bg-primary/90",
+        blue: "ui-bg-blue-500 ui-text-primary-foreground hover:ui-bg-blue-500/90",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "ui-bg-destructive ui-text-destructive-foreground hover:ui-bg-destructive/90",
         outline:
-          "border border-input hover:bg-accent hover:text-accent-foreground",
+          "ui-border ui-border-input hover:ui-bg-accent hover:ui-text-accent-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "underline-offset-4 hover:underline text-primary",
+          "ui-bg-secondary ui-text-secondary-foreground hover:ui-bg-secondary/80",
+        ghost: "hover:ui-bg-accent hover:ui-text-accent-foreground",
+        link: "ui-underline-offset-4 hover:ui-underline ui-text-primary",
       },
       size: {
-        default: "h-10 py-2 px-4",
-        sm: "h-9 px-3 rounded-md",
-        lg: "h-11 px-8 rounded-md",
-        icon: "h-10 w-10",
+        default: "ui-h-10 ui-py-2 ui-px-4",
+        sm: "ui-h-9 ui-px-3 ui-rounded-md",
+        lg: "ui-h-11 ui-px-8 ui-rounded-md",
+        icon: "ui-h-10 ui-w-10",
       },
     },
     defaultVariants: {

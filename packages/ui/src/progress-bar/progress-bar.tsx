@@ -8,9 +8,9 @@ interface ProgressBarProps {
 const getEmptyArray = (length: number) => Array.from({ length }).fill(null);
 
 const styles = {
-  done: "bg-blue-500",
-  current: "bg-blue-500 animate-pulse",
-  "to-do": "bg-gray-200",
+  done: "ui-bg-blue-500",
+  current: "ui-bg-blue-500 ui-animate-pulse",
+  "to-do": "ui-bg-gray-200",
 };
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
@@ -24,9 +24,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   });
 
   return (
-    <div className="w-full flex gap-0.5 h-4">
+    <div className="ui-w-full ui-flex ui-gap-0.5 ui-h-4">
       {elements.map((status) => (
-        <div className={cn("rounded-md grow", styles[status])} />
+        <div className={cn("ui-rounded-md ui-grow", styles[status])} />
       ))}
     </div>
   );

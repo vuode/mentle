@@ -19,7 +19,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
   return (
     <article
       className={cn(
-        "p-4 h-full bg-white border border-gray-200 shadow rounded-xl overflow-hidden",
+        "ui-p-4 ui-h-full ui-bg-white ui-border ui-border-gray-200 ui-shadow ui-rounded-xl ui-overflow-hidden",
         className,
       )}
     >
@@ -30,9 +30,9 @@ export const QuizCard: React.FC<QuizCardProps> = ({
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -100, opacity: 0 }}
           transition={{ duration: 0.1 }}
-          className="flex flex-col justify-between h-full"
+          className="ui-flex ui-flex-col ui-justify-between ui-h-full"
         >
-          <section className="grow flex flex-col justify-center h-[10%]">
+          <section className="ui-grow ui-flex ui-flex-col ui-justify-center ui-h-[10%]">
             {question}
           </section>
           <AnimatePresence>
@@ -43,7 +43,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   // exit={{ opacity: 0 }}
-                  className="border-b border-gray-200"
+                  className="ui-border-b ui-border-gray-200"
                 />
                 <motion.section
                   key="answer"
@@ -55,7 +55,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
                   }}
                   // exit={{ opacity: 0, flexGrow: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="flex flex-col justify-center"
+                  className="ui-flex ui-flex-col ui-justify-center"
                 >
                   {answer}
                 </motion.section>
