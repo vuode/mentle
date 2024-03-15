@@ -1,82 +1,35 @@
 import { getNumberFromToken } from "@repo/utils";
 import { getSentenceConfig, subjects, verbs } from ".";
 import { toNumeralString } from "../numerals";
+import { NumeralCategory, numeralCategoryConfigs } from "./numeralCategory";
 
-export const numeralCategories = [
-  {
-    name: "ends_1" as const,
-    title: "21, 31, 41, ...",
-    grGender: "nmp" as const,
-    range: {
-      from: 20,
-      to: 99,
-      exclude: /\d[^1]/,
-    },
-  },
-  {
-    name: "ends_2_4" as const,
-    title: "2, 3, 4, 22, 23, 24, 32, 33, 34, ...",
-    grGender: "nmp" as const,
-    range: {
-      from: 2,
-      to: 99,
-      exclude: /(\d?[^234])|(1\d)/,
-    },
-  },
-  {
-    name: "mp" as const,
-    title: "Męskoosobowe",
-    grGender: "mp" as const,
-    range: {
-      from: 2,
-      to: 99,
-    },
-  },
-  {
-    name: "rest" as const,
-    title: "Pozostałe",
-    grGender: "nmp" as const,
-    range: {
-      from: 2,
-      to: 99,
-      exclude: /[^1]?[1-4]/,
-    },
-  },
-];
+const getElement = <T extends object | string>(
+  array: T[],
+  token: string,
+  seed: number,
+) => {
+  const index = getNumberFromToken(token, {
+    range: { from: 0, to: array.length - 1 },
+    seed,
+  });
+  const element = array[index] as T;
 
-export type NumeralCategory = (typeof numeralCategories)[number]["name"];
-export const categories: NumeralCategory[] = numeralCategories.map(
-  ({ name }) => name,
-);
+  return [element, index] as const;
+};
 
 export const getSentence = (
   token: string,
   index: number,
   numeralCategory: NumeralCategory,
 ) => {
-  const { grGender, range } = numeralCategories.find(
+  const { grGender, range } = numeralCategoryConfigs.find(
     ({ name }) => name === numeralCategory,
   )!;
 
   const num = getNumberFromToken(token, { range, seed: index });
 
-  const availableSubjects = subjects[grGender];
-
-  const subjectIndex = getNumberFromToken(token, {
-    range: { from: 0, to: availableSubjects.length },
-    seed: num,
-  });
-
-  const subject = availableSubjects[subjectIndex]!;
-
-  const availableVerbs = verbs[subject.categories[0]!];
-  const verbIndex = getNumberFromToken(token, {
-    range: { from: 0, to: availableVerbs.length },
-    seed: subjectIndex,
-  });
-
-  const verb = availableVerbs[verbIndex]!;
-
+  const [subject, subjectIndex] = getElement(subjects[grGender], token, num);
+  const [verb] = getElement(verbs[subject.categories[0]!], token, subjectIndex);
   const [config, altConfig] = getSentenceConfig(num, subject.gender);
 
   const base = {
