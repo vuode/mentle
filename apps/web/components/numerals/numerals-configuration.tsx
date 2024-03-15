@@ -1,6 +1,6 @@
 "use client";
 
-import { NumberInput } from "@repo/ui/number-input";
+import { NumberInput } from "@repo/ui/input";
 import { Field, Form } from "react-final-form";
 import { shuffle } from "../../utils/shuffle";
 import {
