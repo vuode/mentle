@@ -35,33 +35,29 @@ export const QuizCard: React.FC<QuizCardProps> = ({
           <section className="ui-grow ui-flex ui-flex-col ui-justify-center ui-h-[10%]">
             {question}
           </section>
-          <AnimatePresence>
-            {showAnswer && (
-              <>
-                <motion.div
-                  key="line"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  // exit={{ opacity: 0 }}
-                  className="ui-border-b ui-border-gray-200"
-                />
-                <motion.section
-                  key="answer"
-                  initial={{ opacity: 0, flexGrow: 0, height: "0%" }}
-                  animate={{
-                    opacity: 1,
-                    flexGrow: 1,
-                    height: "10%",
-                  }}
-                  // exit={{ opacity: 0, flexGrow: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="ui-flex ui-flex-col ui-justify-center"
-                >
-                  {answer}
-                </motion.section>
-              </>
-            )}
-          </AnimatePresence>
+          {showAnswer && (
+            <>
+              <motion.div
+                key="line"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="ui-border-b ui-border-gray-200"
+              />
+              <motion.section
+                key="answer"
+                initial={{ opacity: 0, flexGrow: 0, height: "0%" }}
+                animate={{
+                  opacity: 1,
+                  flexGrow: 1,
+                  height: "10%",
+                }}
+                transition={{ duration: 0.2 }}
+                className="ui-flex ui-flex-col ui-justify-center"
+              >
+                {answer}
+              </motion.section>
+            </>
+          )}
         </motion.div>
       </AnimatePresence>
     </article>
