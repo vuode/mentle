@@ -1,5 +1,6 @@
 import { useField, FieldInputProps } from "react-final-form";
 import { NumberInput, NumberInputProps } from "@repo/ui/input";
+import { cn } from "@repo/ui/utils";
 
 export interface NumberInputFieldProps
   extends Exclude<
@@ -12,6 +13,7 @@ export interface NumberInputFieldProps
 }
 
 export const NumberInputField: React.FC<NumberInputFieldProps> = ({
+  className,
   name,
   label,
   showError,
@@ -25,7 +27,7 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
 
   if (label) {
     return (
-      <div className="grid w-full items-center gap-1.5">
+      <div className={cn("grid w-full items-center gap-1.5", className)}>
         <label
           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           htmlFor={`${name}Field`}
@@ -46,7 +48,7 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
   }
 
   return (
-    <div className="grid w-full items-center gap-1.5">
+    <div className={cn("grid w-full items-center gap-1.5", className)}>
       <NumberInput {...input} {...props} onValueChange={onChange} />
       {showError && (
         <div className="h-5 text-xs text-red-500">{meta.error}</div>
