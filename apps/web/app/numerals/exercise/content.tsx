@@ -1,13 +1,14 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getTokenData } from "./getTokenData";
 import { NumeralsExercise } from "../../../components/numerals/numerals-exercise";
 
 export const NumeralsExercisePageContent: React.FC = () => {
+  const router = useRouter();
+
   const params = useSearchParams();
   const rawToken = params.get("token");
-
   const data = getTokenData(rawToken);
 
   if (!data) {
@@ -20,7 +21,9 @@ export const NumeralsExercisePageContent: React.FC = () => {
         <NumeralsExercise
           token={data.token}
           tasks={data.tasks}
-          onFinish={() => {}}
+          onFinish={() => {
+            router.push("/numerals");
+          }}
         />
       </div>
     </div>
