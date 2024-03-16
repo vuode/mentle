@@ -16,7 +16,12 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, "h-screen")}>{children}</body>
+      <body
+        className={clsx(inter.className, "h-screen")}
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }
