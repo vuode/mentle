@@ -6,6 +6,7 @@ type Exercise = Exclude<ReturnType<typeof generateRandomSentence>, null>;
 interface NumeralsCardProps {
   className?: string;
   exercise: Exercise;
+  index: number;
   showAnswer: boolean;
 }
 
@@ -28,13 +29,14 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
   className,
   exercise,
   showAnswer,
+  index,
 }) => {
   const { sentence, base } = exercise;
 
   return (
     <QuizCard
       className={className}
-      cardKey={JSON.stringify(base)}
+      cardKey={JSON.stringify({ base, index })}
       question={<QATemplate sentence={base} />}
       answer={<QATemplate sentence={sentence} />}
       showAnswer={showAnswer}

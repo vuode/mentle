@@ -31,6 +31,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
       tasks.map((category, index) => ({
         exercise: getSentence(token, index, category),
         type: category,
+        index,
       })),
     [tasks],
   );
@@ -63,6 +64,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
       <NumeralsCard
         className="h-2/3"
         exercise={current.exercise}
+        index={current.index}
         showAnswer={showAnswer}
       />
       <div className="flex justify-around items-center">
