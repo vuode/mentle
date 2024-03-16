@@ -25,8 +25,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className="ui-w-full ui-flex ui-gap-0.5 ui-h-4">
-      {elements.map((status) => (
-        <div className={cn("ui-rounded-md ui-grow", styles[status])} />
+      {elements.map((status, index) => (
+        <div
+          key={index}
+          className={cn("ui-rounded-md ui-grow", styles[status])}
+        />
       ))}
     </div>
   );
