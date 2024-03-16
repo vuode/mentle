@@ -25,7 +25,7 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
 
   if (label) {
     return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5">
         <label
           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           htmlFor={`${name}Field`}
@@ -46,7 +46,7 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
   }
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
+    <div className="grid w-full items-center gap-1.5">
       <NumberInput {...input} {...props} onValueChange={onChange} />
       {showError && (
         <div className="h-5 text-xs text-red-500">{meta.error}</div>
