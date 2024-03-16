@@ -52,7 +52,7 @@ export const NumeralsConfigurationSimple: React.FC<
     <div>
       <Form onSubmit={onSubmit} validate={validate}>
         {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form className="grid gap-2" onSubmit={handleSubmit}>
             <NumberInputField
               key="count"
               name="count"
@@ -60,7 +60,9 @@ export const NumeralsConfigurationSimple: React.FC<
               decimalScale={0}
               showError
             />
-            <Button type="submit">Zacznij</Button>
+            <Button className="" type="submit">
+              Zacznij
+            </Button>
           </form>
         )}
       </Form>

@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <div className="mx-auto h-full max-w-screen-sm">
       <div className="p-4 h-full">
-        <Tabs defaultValue="simple">
+        <Tabs className="flex flex-col gap-2" defaultValue="simple">
           <TabsList className="w-full flex gap-1">
             <TabsTrigger className="grow" value="simple">
               Uproszczony
@@ -20,22 +20,25 @@ export default function Page() {
               Zaawansowany
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="simple">
-            <NumeralsConfigurationSimple
-              onSelect={(token) => {
-                const params = new URLSearchParams({ token });
-                router.push(`/numerals/exercise?${params.toString()}`);
-              }}
-            />
-          </TabsContent>
-          <TabsContent value="advanced">
-            <NumeralsConfiguration
-              onSelect={(token) => {
-                const params = new URLSearchParams({ token });
-                router.push(`/numerals/exercise?${params.toString()}`);
-              }}
-            />
-          </TabsContent>
+
+          <div className="p-4 border border-gray-200 shadow rounded-xl">
+            <TabsContent value="simple">
+              <NumeralsConfigurationSimple
+                onSelect={(token) => {
+                  const params = new URLSearchParams({ token });
+                  router.push(`/numerals/exercise?${params.toString()}`);
+                }}
+              />
+            </TabsContent>
+            <TabsContent value="advanced">
+              <NumeralsConfiguration
+                onSelect={(token) => {
+                  const params = new URLSearchParams({ token });
+                  router.push(`/numerals/exercise?${params.toString()}`);
+                }}
+              />
+            </TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>

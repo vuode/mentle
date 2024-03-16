@@ -55,8 +55,13 @@ export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
         }}
       >
         {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <InputField name="code" label="token" showError />
+          <form className="grid gap-2 sm:grid-cols-2" onSubmit={handleSubmit}>
+            <InputField
+              className="sm:col-span-2"
+              name="code"
+              label="token"
+              showError
+            />
             {numeralCategoryConfigs.map(({ name, title }) => (
               <NumberInputField
                 key={name}
@@ -66,7 +71,9 @@ export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
                 showError
               />
             ))}
-            <Button type="submit">Zacznij</Button>
+            <Button className="sm:col-span-2" type="submit">
+              Zacznij
+            </Button>
           </form>
         )}
       </Form>
