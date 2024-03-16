@@ -29,7 +29,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -100, opacity: 0 }}
-          transition={{ duration: 0.1 }}
+          transition={{ duration: 0.17 }}
           className="ui-flex ui-flex-col ui-justify-between ui-h-full"
         >
           <section className="ui-grow ui-flex ui-flex-col ui-justify-center ui-h-[10%]">
