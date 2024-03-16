@@ -1,53 +1,72 @@
-"use client";
-
-import { NumberInput } from "@repo/ui/input";
-import { Field, Form } from "react-final-form";
+import { Form } from "react-final-form";
 import { shuffle } from "../../utils/shuffle";
 import {
-  CategoryName,
-  Config,
-  numeralCategories,
-} from "../../data/numeral-categories";
+  NumeralCategory,
+  numeralCategoryConfigs,
+} from "@repo/language-utils/sentences";
+import { Button } from "@repo/ui/button";
+import { z } from "zod";
+import { InputField } from "../form/InputField";
+import { NumberInputField } from "../form/NumberInputField";
 
 interface NumeralsConfigurationProps {
-  onSelect: (config: Config[]) => void;
+  onSelect: (token: string) => void;
 }
+
+interface FormValues extends Record<NumeralCategory, number | undefined> {
+  code: string;
+}
+
+const countType = z.optional(z.number().min(0).max(50));
+
+const schema = z.object({
+  code: z.string().min(1).max(5),
+  ends_1: countType,
+  ends_2_4: countType,
+  mp: countType,
+  rest: countType,
+} satisfies Record<keyof FormValues, z.Schema>);
 
 export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
   onSelect,
 }) => {
-  const onSubmit = (values: Record<CategoryName, number>) => {
-    const entries = Object.entries(values) as [CategoryName, number][];
-
-    const configs = entries.flatMap(
-      ([key, count]) =>
-        numeralCategories.find(({ name }) => name === key)?.generator(count) ??
-        [],
+  const onSubmit = ({ code, ...config }: FormValues) => {
+    const tasks = numeralCategoryConfigs.flatMap(({ name }) =>
+      Array.from({ length: config[name] ?? 0 }).map(() => name),
     );
 
-    onSelect(shuffle(configs));
+    const token = btoa(JSON.stringify({ tasks: shuffle(tasks), token: code }));
+
+    onSelect(token);
   };
 
   return (
     <div>
-      <Form onSubmit={onSubmit}>
+      <Form
+        onSubmit={onSubmit}
+        validate={(values) => {
+          const validation = schema.safeParse(values);
+
+          if (validation.success) {
+            return;
+          }
+
+          return validation.error.formErrors.fieldErrors;
+        }}
+      >
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            {numeralCategories.map((category) => (
-              <div key={category.name}>
-                <div>{category.title}</div>
-                <Field name={category.name}>
-                  {({ input }) => (
-                    <NumberInput
-                      value={input.value}
-                      onValueChange={input.onChange}
-                      decimalScale={0}
-                    />
-                  )}
-                </Field>
-              </div>
+            <InputField name="code" label="token" showError />
+            {numeralCategoryConfigs.map(({ name, title }) => (
+              <NumberInputField
+                key={name}
+                name={name}
+                label={title}
+                decimalScale={0}
+                showError
+              />
             ))}
-            <button type="submit">Zacznij</button>
+            <Button type="submit">Zacznij</Button>
           </form>
         )}
       </Form>

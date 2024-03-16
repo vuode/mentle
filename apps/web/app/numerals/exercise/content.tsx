@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { getTokenData } from "./getTokenData";
-import { NumeralsExercise } from "../../../components/numerals/numerals-exercise-2";
+import { NumeralsExercise } from "../../../components/numerals/numerals-exercise";
 
 export const NumeralsExercisePageContent: React.FC = () => {
   const params = useSearchParams();
