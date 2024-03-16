@@ -34,7 +34,7 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
   return (
     <QuizCard
       className={className}
-      key={JSON.stringify(base)}
+      cardKey={JSON.stringify(base)}
       question={<QATemplate sentence={base} />}
       answer={<QATemplate sentence={sentence} />}
       showAnswer={showAnswer}

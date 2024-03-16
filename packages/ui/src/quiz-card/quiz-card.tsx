@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 interface QuizCardProps {
   className?: string;
-  key: React.Key;
+  cardKey: React.Key;
   question: React.ReactNode;
   answer: React.ReactNode;
   showAnswer?: boolean;
@@ -11,7 +11,7 @@ interface QuizCardProps {
 
 export const QuizCard: React.FC<QuizCardProps> = ({
   className,
-  key,
+  cardKey,
   question,
   answer,
   showAnswer,
@@ -25,7 +25,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
     >
       <AnimatePresence mode="wait">
         <motion.div
-          key={key}
+          key={cardKey}
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -100, opacity: 0 }}
