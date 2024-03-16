@@ -73,7 +73,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
               setShowAnswer(false);
             }}
             className="rounded-full"
-            size="icon"
+            size="icon-lg"
             variant="blue"
           >
             <ArrowRight />
@@ -84,7 +84,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
               setShowAnswer(true);
             }}
             className="rounded-full"
-            size="icon"
+            size="icon-lg"
             variant="blue"
           >
             <Eye />
