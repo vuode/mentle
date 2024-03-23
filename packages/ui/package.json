@@ -12,9 +12,10 @@
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./input": "./src/input/index.ts",
-    "./quiz-card": "./src/quiz-card/index.ts",
     "./progress-bar": "./src/progress-bar/index.ts",
-    "./tabs": "./src/tabs/index.ts"
+    "./tabs": "./src/tabs/index.ts",
+    "./quiz-card-content": "./src/quiz-card-content/index.ts",
+    "./swipe-card": "./src/swipe-card/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
