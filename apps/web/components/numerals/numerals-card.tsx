@@ -1,13 +1,17 @@
 import { generateRandomSentence } from "@repo/language-utils/sentences";
-import { QuizCard } from "@repo/ui/quiz-card";
+import { QuizCardContent } from "@repo/ui/quiz-card-content";
+import { SwipeCard } from "@repo/ui/swipe-card";
 
 type Exercise = Exclude<ReturnType<typeof generateRandomSentence>, null>;
 
 interface NumeralsCardProps {
   className?: string;
   exercise: Exercise;
-  index: number;
-  showAnswer: boolean;
+  showAnswer?: boolean;
+  onAnswer: (correct: boolean) => void;
+  onShowAnswer: () => void;
+  exit?: boolean;
+  onCardExit: () => void;
 }
 
 interface QATemplateProps {
@@ -29,17 +33,27 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
   className,
   exercise,
   showAnswer,
-  index,
+  onAnswer,
+  onShowAnswer,
+  onCardExit,
+  exit,
 }) => {
   const { sentence, base } = exercise;
 
   return (
-    <QuizCard
+    <SwipeCard
       className={className}
-      cardKey={JSON.stringify({ base, index })}
-      question={<QATemplate sentence={base} />}
-      answer={<QATemplate sentence={sentence} />}
-      showAnswer={showAnswer}
-    />
+      allowSwipe={showAnswer}
+      onClick={onShowAnswer}
+      onSwipeEnd={() => onAnswer(true)}
+      exit={exit}
+      onExitEnd={onCardExit}
+    >
+      <QuizCardContent
+        question={<QATemplate sentence={base} />}
+        answer={<QATemplate sentence={sentence} />}
+        showAnswer={showAnswer}
+      />
+    </SwipeCard>
   );
 };

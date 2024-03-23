@@ -17,7 +17,8 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
   onFinish,
 }) => {
   const [showAnswer, setShowAnswer] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [exitIndex, setExitIndex] = useState<number | null>(null);
 
   const finished = currentIndex >= tasks.length;
   useEffect(() => {
@@ -28,19 +29,22 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
 
   const exercises = useMemo(
     () =>
-      tasks.map((category, index) => ({
-        exercise: getSentence(token, index, category),
-        type: category,
-        index,
-      })),
+      tasks
+        .map((category, index) => ({
+          exercise: getSentence(token, index, category),
+          type: category,
+          index,
+        }))
+        .slice()
+        .reverse(),
     [tasks],
   );
 
-  const current = exercises[currentIndex];
-
-  if (!current) {
-    return null;
-  }
+  const getShowAnswer = (index: number) => {
+    if (index === currentIndex) return showAnswer;
+    if (index === exitIndex) return true;
+    return false;
+  };
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -61,18 +65,38 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
         Użyj podanych słów, aby stworzyć zdanie w czasie przeszłym:
       </div>
 
-      <NumeralsCard
-        className="h-2/3"
-        exercise={current.exercise}
-        index={current.index}
-        showAnswer={showAnswer}
-      />
+      <div className="h-2/3 relative">
+        {exercises.map(
+          ({ exercise, index }) =>
+            [currentIndex, exitIndex, currentIndex + 1].includes(index) && (
+              <NumeralsCard
+                key={index}
+                className="absolute w-full"
+                exercise={exercise}
+                showAnswer={getShowAnswer(index)}
+                onShowAnswer={() => {
+                  setShowAnswer(true);
+                }}
+                onAnswer={() => {
+                  setExitIndex(index);
+                  setShowAnswer(false);
+                  setCurrentIndex((previous) => previous + 1);
+                }}
+                exit={index === exitIndex}
+                onCardExit={() => {
+                  setExitIndex(null);
+                }}
+              />
+            ),
+        )}
+      </div>
       <div className="flex justify-around items-center">
         {showAnswer ? (
           <Button
             onClick={() => {
-              setCurrentIndex((previous) => previous + 1);
+              setExitIndex(currentIndex);
               setShowAnswer(false);
+              setCurrentIndex((previous) => previous + 1);
             }}
             className="rounded-full"
             size="icon-lg"
