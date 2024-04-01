@@ -11,6 +11,8 @@ interface NumeralsCardProps {
   onAnswer: (correct: boolean) => void;
   onShowAnswer: () => void;
   exit?: boolean;
+  forceDirection?: "right" | "left" | null;
+  onDirectionChange?: (direction: "right" | "left" | null) => void;
   onCardExit: () => void;
 }
 
@@ -37,6 +39,8 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
   onShowAnswer,
   onCardExit,
   exit,
+  forceDirection,
+  onDirectionChange,
 }) => {
   const { sentence, base } = exercise;
 
@@ -48,6 +52,8 @@ export const NumeralsCard: React.FC<NumeralsCardProps> = ({
       onSwipeEnd={() => onAnswer(true)}
       exit={exit}
       onExitEnd={onCardExit}
+      forceDirection={forceDirection}
+      onDirectionChange={onDirectionChange}
     >
       <QuizCardContent
         question={<QATemplate sentence={base} />}

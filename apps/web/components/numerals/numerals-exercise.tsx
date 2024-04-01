@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { NumeralCategory, getSentence } from "@repo/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
-import { ArrowLeft, ArrowRight, Eye } from "lucide-react";
+import { ArrowLeft, X, Eye, Check } from "lucide-react";
 import { ProgressBar } from "@repo/ui/progress-bar";
 import { Button } from "@repo/ui/button";
+import { cn } from "@repo/ui/utils";
 
 interface NumeralsExerciseProps {
   token: string;
@@ -19,6 +20,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
   const [showAnswer, setShowAnswer] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [exitIndex, setExitIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<"right" | "left" | null>(null);
 
   const finished = currentIndex >= tasks.length;
   useEffect(() => {
@@ -44,6 +46,16 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
     if (index === currentIndex) return showAnswer;
     if (index === exitIndex) return true;
     return false;
+  };
+
+  const getOnAnswer = (exitDirection?: "right" | "left") => () => {
+    if (exitDirection) {
+      setDirection(exitDirection);
+    }
+
+    setExitIndex(currentIndex);
+    setShowAnswer(false);
+    setCurrentIndex((previous) => previous + 1);
   };
 
   return (
@@ -77,41 +89,50 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
                 onShowAnswer={() => {
                   setShowAnswer(true);
                 }}
-                onAnswer={() => {
-                  setExitIndex(index);
-                  setShowAnswer(false);
-                  setCurrentIndex((previous) => previous + 1);
-                }}
+                onAnswer={getOnAnswer()}
+                forceDirection={direction}
                 exit={index === exitIndex}
                 onCardExit={() => {
                   setExitIndex(null);
+                  setDirection(null);
                 }}
+                onDirectionChange={setDirection}
               />
             ),
         )}
       </div>
       <div className="flex justify-around items-center">
         {showAnswer ? (
-          <Button
-            onClick={() => {
-              setExitIndex(currentIndex);
-              setShowAnswer(false);
-              setCurrentIndex((previous) => previous + 1);
-            }}
-            className="rounded-full"
-            size="icon-lg"
-            variant="blue"
-          >
-            <ArrowRight />
-          </Button>
+          <>
+            <Button
+              onClick={getOnAnswer("left")}
+              className={cn("rounded-full", {
+                "bg-red-200": direction === "left",
+              })}
+              size="icon-xl"
+              variant="secondary"
+            >
+              <X />
+            </Button>
+            <Button
+              onClick={getOnAnswer("right")}
+              className={cn("rounded-full", {
+                "bg-green-200": direction === "right",
+              })}
+              size="icon-xl"
+              variant="secondary"
+            >
+              <Check />
+            </Button>
+          </>
         ) : (
           <Button
             onClick={() => {
               setShowAnswer(true);
             }}
             className="rounded-full"
-            size="icon-lg"
-            variant="blue"
+            size="icon-xl"
+            variant="secondary"
           >
             <Eye />
           </Button>
