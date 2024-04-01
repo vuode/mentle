@@ -6,12 +6,13 @@ import {
   useTransform,
 } from "framer-motion";
 import { cn } from "../utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface SwipeCardProps {
   className?: string;
   children: React.ReactNode;
   onDirectionChange?: (direction: "right" | "left" | null) => void;
+  forceDirection?: "right" | "left" | null;
   onSwipeEnd?: (direction: "right" | "left") => void;
   allowSwipe?: boolean;
   onClick?: () => void;
@@ -23,6 +24,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
   className,
   children,
   onDirectionChange,
+  forceDirection,
   onSwipeEnd,
   exit,
   onExitEnd,
@@ -32,16 +34,40 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
   const [direction, setDirection] = useState<"right" | "left" | null>(null);
   const animation = useAnimation();
 
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const [cardWidth, setCardWidth] = useState<number>(500);
+
+  useEffect(() => {
+    setCardWidth(cardRef.current?.getBoundingClientRect().width ?? 500);
+
+    const listener = () => {
+      setCardWidth(cardRef.current?.getBoundingClientRect().width ?? 500);
+    };
+
+    window.addEventListener("resize", listener);
+
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, [cardRef.current]);
+
+  const xExit = {
+    right: cardWidth,
+    left: -cardWidth,
+    default: 0,
+  };
+
   const x = useMotionValue(0);
   useMotionValueEvent(x, "change", (value) => {
-    const progress = (value * 2) / window.innerWidth;
+    const progress = value / cardWidth;
 
-    if (progress >= 0.15) {
+    if (progress >= 0.3) {
       setDirection("right");
       return;
     }
 
-    if (progress <= -0.15) {
+    if (progress <= -0.3) {
       setDirection("left");
       return;
     }
@@ -65,13 +91,23 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
       return;
     }
 
+    let finalX = 0;
+
+    if (!forceDirection) {
+      finalX = (direction && xExit[direction]) ?? xExit.default;
+    }
+
+    if (forceDirection) {
+      finalX = xExit[forceDirection];
+    }
+
     animation
       .start(
         {
-          x: direction === "left" ? -1000 : 1000,
+          x: finalX,
           opacity: 0,
         },
-        { duration: 0.5 },
+        { duration: 0.3 },
       )
       .then(() => {
         if (!onExitEnd) return;
@@ -81,6 +117,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = ({
 
   return (
     <motion.div
+      ref={cardRef}
       className={cn(
         "ui-p-4 ui-h-full ui-bg-whit ui-border ui-border-gray-200 ui-shadow ui-rounded-xl ui-overflow-hidden ui-transition-colors",
         {
