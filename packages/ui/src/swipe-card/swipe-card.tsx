@@ -1,152 +1,100 @@
+import { forwardRef, useRef } from "react";
 import {
-  motion,
-  useAnimation,
   useMotionValue,
   useMotionValueEvent,
   useTransform,
+  motion,
+  useIsPresent,
 } from "framer-motion";
+import { useRefWidth } from "../hooks/useRefWidth";
 import { cn } from "../utils";
-import { useEffect, useRef, useState } from "react";
+
+export type Direction = "right" | "left" | null;
+
+export interface SwipeCardConfig {
+  direction?: Direction;
+  transitioning?: boolean;
+  allowSwipe?: boolean;
+  onChangeDirection?: (direction: Direction) => void;
+  onSwipeEnd?: () => void;
+  colors: {
+    right: string;
+    left: string;
+    default: string;
+  };
+  threshold: number;
+}
 
 interface SwipeCardProps {
   className?: string;
   children: React.ReactNode;
-  onDirectionChange?: (direction: "right" | "left" | null) => void;
-  forceDirection?: "right" | "left" | null;
-  onSwipeEnd?: (direction: "right" | "left") => void;
-  allowSwipe?: boolean;
+  config: SwipeCardConfig;
   onClick?: () => void;
-  exit?: boolean;
-  onExitEnd?: () => void;
 }
 
-export const SwipeCard: React.FC<SwipeCardProps> = ({
-  className,
-  children,
-  onDirectionChange,
-  forceDirection,
-  onSwipeEnd,
-  exit,
-  onExitEnd,
-  allowSwipe,
-  onClick,
-}) => {
-  const [direction, setDirection] = useState<"right" | "left" | null>(null);
-  const animation = useAnimation();
+export const SwipeCard: React.FC<SwipeCardProps> = forwardRef<
+  HTMLDivElement,
+  SwipeCardProps
+>(({ className, children, config, onClick }, ref) => {
+  const widthRef = useRef<HTMLDivElement>(null);
+  const width = useRefWidth(widthRef, 200);
+  const present = useIsPresent();
 
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const [cardWidth, setCardWidth] = useState<number>(500);
-
-  useEffect(() => {
-    setCardWidth(cardRef.current?.getBoundingClientRect().width ?? 500);
-
-    const listener = () => {
-      setCardWidth(cardRef.current?.getBoundingClientRect().width ?? 500);
-    };
-
-    window.addEventListener("resize", listener);
-
-    return () => {
-      window.removeEventListener("resize", listener);
-    };
-  }, [cardRef.current]);
-
-  const xExit = {
-    right: cardWidth,
-    left: -cardWidth,
-    default: 0,
+  const variants = {
+    bg: (direction: Direction) => ({
+      backgroundColor:
+        !config.transitioning && direction
+          ? direction === "right"
+            ? config.colors.right
+            : config.colors.left
+          : config.colors.default,
+    }),
+    exit: (direction: Direction) => ({
+      x: direction ? (direction === "right" ? 1.2 * width : 1.2 * -width) : 0,
+      opacity: 0,
+    }),
   };
 
   const x = useMotionValue(0);
-  useMotionValueEvent(x, "change", (value) => {
-    const progress = value / cardWidth;
-
-    if (progress >= 0.3) {
-      setDirection("right");
-      return;
-    }
-
-    if (progress <= -0.3) {
-      setDirection("left");
-      return;
-    }
-
-    setDirection(null);
-  });
-
   const rotateZ = useTransform(x, [-200, 200], [-10, 10]);
-
-  useEffect(() => {
-    if (!onDirectionChange) return;
-    onDirectionChange(direction);
-  }, [direction]);
-
-  useEffect(() => {
-    if (!exit) {
-      animation.set({
-        x: 0,
-        opacity: 1,
-      });
+  useMotionValueEvent(x, "change", (value) => {
+    if (!config.onChangeDirection) {
       return;
     }
 
-    let finalX = 0;
+    const progress = value / width;
 
-    if (!forceDirection) {
-      finalX = (direction && xExit[direction]) ?? xExit.default;
+    if (progress >= config.threshold) {
+      config.onChangeDirection("right");
+      return;
     }
 
-    if (forceDirection) {
-      finalX = xExit[forceDirection];
+    if (progress <= -config.threshold) {
+      config.onChangeDirection("left");
+      return;
     }
 
-    animation
-      .start(
-        {
-          x: finalX,
-          opacity: 0,
-        },
-        { duration: 0.3 },
-      )
-      .then(() => {
-        if (!onExitEnd) return;
-        onExitEnd();
-      });
-  }, [exit]);
+    config.onChangeDirection(null);
+  });
 
   return (
     <motion.div
-      ref={cardRef}
-      className={cn(
-        "ui-p-4 ui-h-full ui-bg-whit ui-border ui-border-gray-200 ui-shadow ui-rounded-xl ui-overflow-hidden ui-transition-colors",
-        {
-          "ui-bg-white": !direction,
-          "ui-bg-green-100": direction === "right",
-          "ui-bg-red-100": direction === "left",
-        },
-        {
-          "ui-cursor-pointer": Boolean(onClick && !allowSwipe),
-          "ui-cursor-grab": allowSwipe,
-        },
-        className,
-      )}
-      style={{ x, rotateZ }}
-      animate={animation}
-      drag={allowSwipe}
-      dragElastic
-      dragSnapToOrigin
-      whileDrag={{ scale: 1.1 }}
-      onDragEnd={() => {
-        if (!direction || !onSwipeEnd) return;
-        onSwipeEnd(direction);
-      }}
-      onClick={() => {
-        if (!onClick || allowSwipe) return;
-        onClick();
-      }}
+      className={cn("absolute", !present && "z-10", className)}
+      ref={ref}
+      style={{ x, rotateZ, backgroundColor: config.colors.default }}
+      custom={config.direction}
+      variants={variants}
+      animate="bg"
+      exit={["exit", "bg"]}
+      drag={config.allowSwipe}
+      dragElastic={0.5}
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      onDragEnd={config.onSwipeEnd}
+      onClick={onClick}
     >
-      {children}
+      <div className="w-full h-full" ref={widthRef}>
+        {children}
+      </div>
     </motion.div>
   );
-};
+});
