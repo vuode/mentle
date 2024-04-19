@@ -79,7 +79,7 @@ export const SwipeCard: React.FC<SwipeCardProps> = forwardRef<
 
   return (
     <motion.div
-      className={cn("absolute", !present && "z-10", className)}
+      className={cn("ui-absolute", !present && "ui-z-10", className)}
       ref={ref}
       style={{ x, rotateZ, backgroundColor: config.colors.default }}
       custom={config.direction}
