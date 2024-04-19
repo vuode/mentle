@@ -1,19 +1,11 @@
 import { generateRandomSentence } from "@repo/language-utils/sentences";
 import { QuizCardContent } from "@repo/ui/quiz-card-content";
-import { SwipeCard } from "@repo/ui/swipe-card";
 
 type Exercise = Exclude<ReturnType<typeof generateRandomSentence>, null>;
 
 interface NumeralsCardProps {
-  className?: string;
   exercise: Exercise;
   showAnswer?: boolean;
-  onAnswer: (correct: boolean) => void;
-  onShowAnswer: () => void;
-  exit?: boolean;
-  forceDirection?: "right" | "left" | null;
-  onDirectionChange?: (direction: "right" | "left" | null) => void;
-  onCardExit: () => void;
 }
 
 interface QATemplateProps {
@@ -32,34 +24,16 @@ const QATemplate: React.FC<QATemplateProps> = ({ sentence }) => (
 );
 
 export const NumeralsCard: React.FC<NumeralsCardProps> = ({
-  className,
   exercise,
   showAnswer,
-  onAnswer,
-  onShowAnswer,
-  onCardExit,
-  exit,
-  forceDirection,
-  onDirectionChange,
 }) => {
   const { sentence, base } = exercise;
 
   return (
-    <SwipeCard
-      className={className}
-      allowSwipe={showAnswer}
-      onClick={onShowAnswer}
-      onSwipeEnd={() => onAnswer(true)}
-      exit={exit}
-      onExitEnd={onCardExit}
-      forceDirection={forceDirection}
-      onDirectionChange={onDirectionChange}
-    >
-      <QuizCardContent
-        question={<QATemplate sentence={base} />}
-        answer={<QATemplate sentence={sentence} />}
-        showAnswer={showAnswer}
-      />
-    </SwipeCard>
+    <QuizCardContent
+      question={<QATemplate sentence={base} />}
+      answer={<QATemplate sentence={sentence} />}
+      showAnswer={showAnswer}
+    />
   );
 };
