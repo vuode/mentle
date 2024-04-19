@@ -30,7 +30,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
   } = useSwipeCard({
     allowSwipe: showAnswer,
     threshold: 0.2,
-    colors: { right: "#FEE2E2", left: "#DCFCE7", default: "#FFFFFF" },
+    colors: { right: "#DCFCE7", left: "#FEE2E2", default: "#FFFFFF" },
     onCardSwipe: () => {
       setCurrentIndex((previous) => previous + 1);
       setShowAnswer(false);
