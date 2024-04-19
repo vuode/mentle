@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { NumeralCategory, getSentence } from "@repo/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
 import { ArrowLeft, X, Eye, Check } from "lucide-react";
-import { ProgressBar } from "@repo/ui/progress-bar";
 import { Button } from "@repo/ui/button";
 import { cn } from "@repo/ui/utils";
 import { AnimatePresence } from "framer-motion";
@@ -59,24 +58,20 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
 
   return (
     <div className="h-full flex flex-col justify-between">
-      <div className="flex flex-col">
-        <div className="mb-4 flex justify-between items-center">
-          <Button size="icon" variant="ghost" onClick={() => onFinish()}>
-            <ArrowLeft />
-          </Button>
-          <div>
-            {currentIndex + 1} / {tasks.length}
-          </div>
+      <div className="flex justify-between items-center">
+        <Button size="icon" variant="ghost" onClick={() => onFinish()}>
+          <ArrowLeft />
+        </Button>
+        <div>
+          {currentIndex + 1} / {tasks.length}
         </div>
-
-        <ProgressBar currentIndex={currentIndex} length={tasks.length} />
       </div>
 
       <div className="font-semibold text-center">
         Użyj podanych słów, aby stworzyć zdanie w czasie przeszłym:
       </div>
 
-      <div className="h-2/3 relative">
+      <div className="h-3/5 relative">
         <AnimatePresence custom={direction} onExitComplete={onExitComplete}>
           {exercises.map(({ exercise, index }) => {
             const isCurrentCard = index === currentIndex;
@@ -96,6 +91,7 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
                         setShowAnswer(true);
                       }
                 }
+                pending={isPendingCard}
               >
                 <NumeralsCard
                   exercise={exercise}
