@@ -30,12 +30,13 @@ interface SwipeCardProps {
   children: React.ReactNode;
   config: SwipeCardConfig;
   onClick?: () => void;
+  pending?: boolean;
 }
 
 export const SwipeCard: React.FC<SwipeCardProps> = forwardRef<
   HTMLDivElement,
   SwipeCardProps
->(({ className, children, config, onClick }, ref) => {
+>(({ className, children, config, onClick, pending }, ref) => {
   const widthRef = useRef<HTMLDivElement>(null);
   const width = useRefWidth(widthRef, 200);
   const present = useIsPresent();
@@ -53,6 +54,14 @@ export const SwipeCard: React.FC<SwipeCardProps> = forwardRef<
       x: direction ? (direction === "right" ? 1.2 * width : 1.2 * -width) : 0,
       opacity: 0,
     }),
+    small: {
+      scale: 0.9,
+      translateY: "10%",
+    },
+    big: {
+      scale: 1,
+      translateY: 0,
+    },
   };
 
   const x = useMotionValue(0);
@@ -81,10 +90,15 @@ export const SwipeCard: React.FC<SwipeCardProps> = forwardRef<
     <motion.div
       className={cn("ui-absolute", !present && "ui-z-10", className)}
       ref={ref}
-      style={{ x, rotateZ, backgroundColor: config.colors.default }}
+      style={{
+        x,
+        rotateZ,
+        backgroundColor: config.colors.default,
+      }}
       custom={config.direction}
       variants={variants}
-      animate="bg"
+      initial={pending ? "small" : undefined}
+      animate={pending ? ["bg", "small"] : ["bg", "big"]}
       exit={["exit", "bg"]}
       drag={config.allowSwipe}
       dragElastic={0.5}
