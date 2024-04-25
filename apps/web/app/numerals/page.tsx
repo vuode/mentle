@@ -4,13 +4,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/tabs";
 import { NumeralsConfiguration } from "../../components/numerals/numerals-configuration";
 import { useRouter } from "next/navigation";
 import { NumeralsConfigurationSimple } from "../../components/numerals/numerals-configuration-simple";
+import { NumeralsTheory } from "../../components/numerals/numerals-theory";
 
 export default function Page() {
   const router = useRouter();
 
   return (
     <div className="mx-auto h-full max-w-screen-sm">
-      <div className="p-4 h-full">
+      <div className="p-4">
+        <NumeralsTheory />
+      </div>
+      <div className="p-4">
         <Tabs className="flex flex-col gap-2" defaultValue="simple">
           <TabsList className="w-full flex gap-1">
             <TabsTrigger className="grow" value="simple">
