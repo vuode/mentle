@@ -6,21 +6,18 @@ import {
 } from "@repo/language-utils/sentences";
 import { Button } from "@repo/ui/button";
 import { z } from "zod";
-import { InputField } from "../form/InputField";
 import { NumberInputField } from "../form/NumberInputField";
+import { v4 as uuid } from "uuid";
 
 interface NumeralsConfigurationProps {
   onSelect: (token: string) => void;
 }
 
-interface FormValues extends Record<NumeralCategory, number | undefined> {
-  code: string;
-}
+interface FormValues extends Record<NumeralCategory, number | undefined> {}
 
 const countType = z.optional(z.number().min(0).max(50));
 
 const schema = z.object({
-  code: z.string().min(1).max(5),
   ends_1: countType,
   ends_2_4: countType,
   mp: countType,
@@ -30,12 +27,14 @@ const schema = z.object({
 export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
   onSelect,
 }) => {
-  const onSubmit = ({ code, ...config }: FormValues) => {
+  const onSubmit = ({ ...config }: FormValues) => {
     const tasks = numeralCategoryConfigs.flatMap(({ name }) =>
       Array.from({ length: config[name] ?? 0 }).map(() => name),
     );
 
-    const token = btoa(JSON.stringify({ tasks: shuffle(tasks), token: code }));
+    const token = btoa(
+      JSON.stringify({ tasks: shuffle(tasks), token: uuid() }),
+    );
 
     onSelect(token);
   };
@@ -56,12 +55,6 @@ export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
       >
         {({ handleSubmit }) => (
           <form className="grid gap-2 sm:grid-cols-2" onSubmit={handleSubmit}>
-            <InputField
-              className="sm:col-span-2"
-              name="code"
-              label="token"
-              showError
-            />
             {numeralCategoryConfigs.map(({ name, title }) => (
               <NumberInputField
                 key={name}
