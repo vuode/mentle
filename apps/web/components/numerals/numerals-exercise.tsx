@@ -1,17 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { NumeralCategory, getSentence } from "@repo/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
-import { ArrowLeft, X, Eye, Check } from "lucide-react";
+import { ArrowLeft, Eye } from "lucide-react";
 import { Button } from "@repo/ui/button";
-import { cn } from "@repo/ui/utils";
 import { AnimatePresence } from "framer-motion";
 import { SwipeCard, useSwipeCard } from "@repo/ui/swipe-card";
+import { AnswerButton } from "./answer-button";
+import { AnswersCard } from "./answers-card";
 
 interface NumeralsExerciseProps {
   token: string;
   tasks: NumeralCategory[];
   onFinish: () => void;
 }
+
+type Answers = [NumeralCategory, "right" | "wrong"][];
 
 export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
   token,
@@ -20,6 +23,22 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
 }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<Answers>([]);
+
+  const nextCard = (direction: "right" | "left") => {
+    setAnswers((previous) => {
+      const currentCategory = tasks[currentIndex];
+
+      if (!currentCategory) return previous;
+
+      return [
+        ...previous,
+        [currentCategory, direction === "right" ? "right" : "wrong"],
+      ];
+    });
+    setCurrentIndex((previous) => previous + 1);
+  };
+
   const {
     currentCardConfig,
     nextCardConfig,
@@ -28,20 +47,15 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
     setDirection,
   } = useSwipeCard({
     allowSwipe: showAnswer,
-    threshold: 0.2,
+    threshold: 0.1,
     colors: { right: "#DCFCE7", left: "#FEE2E2", default: "#FFFFFF" },
-    onCardSwipe: () => {
-      setCurrentIndex((previous) => previous + 1);
+    onCardSwipe: (direction) => {
+      nextCard(direction);
       setShowAnswer(false);
     },
   });
 
   const finished = currentIndex >= tasks.length;
-  useEffect(() => {
-    if (finished) {
-      onFinish();
-    }
-  }, [finished]);
 
   const exercises = useMemo(
     () =>
@@ -63,16 +77,25 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
           <ArrowLeft />
         </Button>
         <div>
-          {currentIndex + 1} / {tasks.length}
+          {finished ? tasks.length : currentIndex + 1} / {tasks.length}
         </div>
       </div>
 
-      <div className="font-semibold text-center">
-        Użyj podanych słów, aby stworzyć zdanie w czasie przeszłym:
+      <div className="h-[10%] font-semibold text-center">
+        {finished
+          ? "Wyniki"
+          : "Użyj podanych słów, aby stworzyć zdanie w czasie przeszłym:"}
       </div>
 
       <div className="h-3/5 relative">
         <AnimatePresence custom={direction} onExitComplete={onExitComplete}>
+          <SwipeCard
+            className="p-4 h-full w-full border border-gray-200 shadow rounded-xl"
+            config={nextCardConfig}
+            pending={!finished}
+          >
+            <AnswersCard answers={answers} hide={!finished} />
+          </SwipeCard>
           {exercises.map(({ exercise, index }) => {
             const isCurrentCard = index === currentIndex;
             const isPendingCard = index === currentIndex + 1;
@@ -102,54 +125,45 @@ export const NumeralsExercise: React.FC<NumeralsExerciseProps> = ({
           })}
         </AnimatePresence>
       </div>
-      <div className="flex justify-around items-center">
-        {showAnswer ? (
-          <>
+      {finished && <div className="h-[10%]" />}
+      {!finished && (
+        <div className="h-[10%] flex justify-around items-center">
+          {showAnswer ? (
+            <>
+              <AnswerButton
+                type="left"
+                onClick={() => {
+                  setDirection("left");
+                  nextCard("left");
+                  setShowAnswer(false);
+                }}
+                direction={direction}
+              />
+              <AnswerButton
+                type="right"
+                onClick={() => {
+                  setDirection("right");
+                  nextCard("right");
+                  setShowAnswer(false);
+                }}
+                direction={direction}
+              />
+            </>
+          ) : (
             <Button
-              key="left"
+              key="show"
               onClick={() => {
-                setDirection("left");
-                setCurrentIndex((previous) => previous + 1);
-                setShowAnswer(false);
+                setShowAnswer(true);
               }}
-              className={cn("rounded-full", {
-                "bg-red-200": direction === "left",
-              })}
+              className="rounded-full"
               size="icon-xl"
               variant="secondary"
             >
-              <X />
+              <Eye />
             </Button>
-            <Button
-              key="right"
-              onClick={() => {
-                setDirection("right");
-                setCurrentIndex((previous) => previous + 1);
-                setShowAnswer(false);
-              }}
-              className={cn("rounded-full", {
-                "bg-green-200": direction === "right",
-              })}
-              size="icon-xl"
-              variant="secondary"
-            >
-              <Check />
-            </Button>
-          </>
-        ) : (
-          <Button
-            key="show"
-            onClick={() => {
-              setShowAnswer(true);
-            }}
-            className="rounded-full"
-            size="icon-xl"
-            variant="secondary"
-          >
-            <Eye />
-          </Button>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
