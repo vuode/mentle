@@ -1,4 +1,4 @@
-import { useField, FieldInputProps } from "react-final-form";
+import { useField, FieldInputProps, useFormState } from "react-final-form";
 import { NumberInput, NumberInputProps } from "@repo/ui/input";
 import { cn } from "@repo/ui/utils";
 
@@ -10,6 +10,7 @@ export interface NumberInputFieldProps
   name: string;
   label?: string;
   showError?: boolean;
+  hasFormError?: boolean;
 }
 
 export const NumberInputField: React.FC<NumberInputFieldProps> = ({
@@ -17,6 +18,7 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
   name,
   label,
   showError,
+  hasFormError,
   ...props
 }) => {
   const {
@@ -24,6 +26,14 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
     input: { type, onChange, ...input },
     meta,
   } = useField<number>(name);
+
+  const { touched } = useFormState();
+
+  const formTouched = touched
+    ? Object.values(touched).some((value) => value)
+    : false;
+
+  const errorVisible = hasFormError ? formTouched : meta.touched;
 
   if (label) {
     return (
@@ -41,7 +51,9 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
           onValueChange={onChange}
         />
         {showError && (
-          <div className="h-5 text-xs text-red-500">{meta.error}</div>
+          <div className="h-5 text-xs text-red-500">
+            {errorVisible ? meta.error : null}
+          </div>
         )}
       </div>
     );
@@ -51,7 +63,9 @@ export const NumberInputField: React.FC<NumberInputFieldProps> = ({
     <div className={cn("grid w-full items-center gap-1.5", className)}>
       <NumberInput {...input} {...props} onValueChange={onChange} />
       {showError && (
-        <div className="h-5 text-xs text-red-500">{meta.error}</div>
+        <div className="h-5 text-xs text-red-500">
+          {errorVisible ? meta.error : null}
+        </div>
       )}
     </div>
   );

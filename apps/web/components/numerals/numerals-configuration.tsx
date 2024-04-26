@@ -72,6 +72,7 @@ export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
                 label={title}
                 decimalScale={0}
                 showError
+                hasFormError={name === "rest"}
               />
             ))}
             <Button className="sm:col-span-2" type="submit">
