@@ -15,14 +15,35 @@ interface NumeralsConfigurationProps {
 
 interface FormValues extends Record<NumeralCategory, number | undefined> {}
 
-const countType = z.optional(z.number().min(0).max(50));
+const countType = z.optional(
+  z.number().min(0).max(50, "Nie można dodać więcej niż 50 zadań"),
+);
 
-const schema = z.object({
-  ends_1: countType,
-  ends_2_4: countType,
-  mp: countType,
-  rest: countType,
-} satisfies Record<keyof FormValues, z.Schema>);
+const schema = z
+  .object({
+    ends_1: countType,
+    ends_2_4: countType,
+    mp: countType,
+    rest: countType,
+  } satisfies Record<keyof FormValues, z.Schema>)
+  .refine((result) => Object.values(result).some((count) => count > 0), {
+    message: "Dodaj przynajmniej jedno dowolne zadanie",
+  });
+
+const validate = (values: FormValues) => {
+  const validation = schema.safeParse(values);
+
+  if (validation.success) {
+    return;
+  }
+
+  const { fieldErrors, formErrors } = validation.error.formErrors;
+
+  return {
+    ...fieldErrors,
+    rest: formErrors ?? fieldErrors.rest,
+  };
+};
 
 export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
   onSelect,
@@ -41,18 +62,7 @@ export const NumeralsConfiguration: React.FC<NumeralsConfigurationProps> = ({
 
   return (
     <div>
-      <Form
-        onSubmit={onSubmit}
-        validate={(values) => {
-          const validation = schema.safeParse(values);
-
-          if (validation.success) {
-            return;
-          }
-
-          return validation.error.formErrors.fieldErrors;
-        }}
-      >
+      <Form onSubmit={onSubmit} validate={validate}>
         {({ handleSubmit }) => (
           <form className="grid gap-2 sm:grid-cols-2" onSubmit={handleSubmit}>
             {numeralCategoryConfigs.map(({ name, title }) => (

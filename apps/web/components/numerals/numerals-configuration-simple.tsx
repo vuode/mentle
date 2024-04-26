@@ -15,7 +15,12 @@ interface FormValues {
 }
 
 const schema = z.object({
-  count: z.number().min(1).max(50),
+  count: z
+    .number({
+      required_error: "Dodaj przynajmniej jedno zadanie",
+    })
+    .min(1, "Dodaj przynajmniej jedno zadanie")
+    .max(50, "Nie można dodać więcej niż 50 zadań"),
 } satisfies Record<keyof FormValues, z.Schema>);
 
 const validate = (values: FormValues) => {
