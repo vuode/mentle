@@ -241,6 +241,13 @@ export const subjects: Subjects = {
       nomPl: "krzesła",
       genPl: "krzeseł",
     },
+    {
+      gender: "f",
+      categories: ["furniture"],
+      nomSg: "kanapa",
+      nomPl: "kanapy",
+      genPl: "kanap",
+    },
 
     {
       gender: "m",
@@ -492,6 +499,21 @@ export const verbs: VerbsCollection = {
       f: "spaliła się",
       nmp: "spaliły się",
     },
+    {
+      base: "zepsuć się",
+      n: "zepsuło się",
+      m: "zepsuł się",
+      f: "zepsuła się",
+      nmp: "zepsuły się",
+    },
+    {
+      base: "kosztować",
+      n: "kosztowało",
+      m: "kosztował",
+      f: "kosztowała",
+      nmp: "kosztowały",
+      before: "dużo",
+    },
   ],
   furniture: [
     {
@@ -517,6 +539,30 @@ export const verbs: VerbsCollection = {
       f: "wyglądała",
       nmp: "wyglądały",
       before: "brzydko",
+    },
+    {
+      base: "skrzypieć",
+      n: "skrzypiało",
+      m: "skrzypiał",
+      f: "skrzypiała",
+      nmp: "skrzypiało",
+      before: "głośnie",
+    },
+    {
+      base: "zabierać",
+      n: "zabierało",
+      m: "zabierał",
+      f: "zabierała",
+      nmp: "zabierały",
+      after: "dużo miejsca",
+    },
+    {
+      base: "pasować",
+      n: "pasowało",
+      m: "pasował",
+      f: "pasowała",
+      nmp: "pasowały",
+      after: "do innych mebli",
     },
   ],
   transport: [
@@ -582,6 +628,14 @@ export const verbs: VerbsCollection = {
       f: "trafiła",
       nmp: "trafiły",
       after: "w głowę",
+    },
+    {
+      base: "spaść",
+      n: "spadło",
+      m: "spadł",
+      f: "spadła",
+      nmp: "spadły",
+      after: "na podłogę",
     },
   ],
 };
