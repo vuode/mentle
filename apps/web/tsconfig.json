@@ -13,6 +13,7 @@
     }
   },
   "include": [
+    "global.d.ts",
     "next-env.d.ts",
     "next.config.js",
     "tailwind.config.js",

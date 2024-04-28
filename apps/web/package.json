@@ -11,6 +11,7 @@
   "dependencies": {
     "@repo/ui": "*",
     "@repo/utils": "*",
+    "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.0",
     "final-form": "^4.20.10",
     "framer-motion": "^11.0.8",
