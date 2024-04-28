@@ -2,10 +2,11 @@
 
 import { Button } from "@repo/ui/button";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
-import heroCircles from "~/assets/hero-circles.svg";
+import HeroIllustration from "~/assets/hero.svg";
+import GithubIcon from "~/assets/github-mark.svg";
 import { subjects } from "./subjects";
 import { SubjectCard } from "./subject-card";
+import Link from "next/link";
 
 export const Landing: React.FC = () => {
   return (
@@ -16,11 +17,7 @@ export const Landing: React.FC = () => {
         </header>
         <div className="mx-auto my-6 px-4 w-full grow flex flex-col justify-center">
           <main className="relative mx-auto max-w-4xl h-[500px]  flex flex-col justify-center">
-            <Image
-              className="absolute top-0 max-w-[90%]"
-              src={heroCircles}
-              alt="circles"
-            />
+            <HeroIllustration className="absolute top-0 w-[300px] max-w-[90%]" />
             <div className="w-4/5 self-end z-10">
               <h2 className="my-4 text-4xl sm:text-6xl font-semibold">
                 Platforma dla uczących się polskiego
@@ -42,19 +39,31 @@ export const Landing: React.FC = () => {
           </main>
         </div>
       </div>
-      <div className="w-full min-h-full bg-slate-100">
-        <section id="subjects" className="mx-auto p-4 max-w-4xl">
-          <h3 className="my-10 text-2xl sm:text-4xl font-semibold text-center">
-            Dostępne tematy
-          </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {subjects.map(({ id, title, path }) => (
-              <li key={id}>
-                <SubjectCard id={id} title={title} path={path} />
-              </li>
-            ))}
-          </ul>
-        </section>
+      <div className="flex flex-col w-full min-h-full">
+        <div className="grow bg-slate-100">
+          <section id="subjects" className="mx-auto p-4 w-full max-w-4xl">
+            <h3 className="my-10 text-2xl sm:text-4xl font-semibold text-center">
+              Dostępne tematy
+            </h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {subjects.map(({ id, title, path }) => (
+                <li key={id}>
+                  <SubjectCard id={id} title={title} path={path} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+        <div className="bg-white">
+          <footer className="mx-auto p-4 w-full max-w-4xl flex justify-between items-center">
+            <div className="text-gray-400">mentle &copy; 2024</div>
+            <div>
+              <Link href="https://github.com/vuode/mentle">
+                <GithubIcon className="w-6 h-6 text-gray-400 hover:text-black" />
+              </Link>
+            </div>
+          </footer>
+        </div>
       </div>
     </div>
   );
