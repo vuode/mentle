@@ -3,8 +3,9 @@
 import { Button } from "@repo/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import heroCircles from "~/assets/hero-circles.svg";
+import { subjects } from "./subjects";
+import { SubjectCard } from "./subject-card";
 
 export const Landing: React.FC = () => {
   return (
@@ -47,21 +48,11 @@ export const Landing: React.FC = () => {
             Dostępne tematy
           </h3>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <li className="">
-              <Link href="/numerals">
-                <div className="p-4 shadow rounded-md bg-white">
-                  <div className="flex justify-center items-center p-1 bg-willow-400 rounded-md text-white font-mono font-semibold w-10 h-10">
-                    01
-                  </div>
-                  <h4 className="my-2 text-lg font-semibold">
-                    Podmiot wyrażony frazą liczebnikową
-                  </h4>
-                  <div className="flex justify-end">
-                    <ArrowRight />
-                  </div>
-                </div>
-              </Link>
-            </li>
+            {subjects.map(({ id, title, path }) => (
+              <li key={id}>
+                <SubjectCard id={id} title={title} path={path} />
+              </li>
+            ))}
           </ul>
         </section>
       </div>
