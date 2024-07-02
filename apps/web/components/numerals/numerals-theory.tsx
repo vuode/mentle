@@ -16,16 +16,37 @@ export const NumeralsTheory: React.FC = () => {
 
       <Accordion type="multiple">
         <AccordionItem value="theory">
-          <AccordionTrigger>Teoria</AccordionTrigger>
+          <AccordionTrigger>
+            <h2 className="font-semibold font-mono border-b-2 border-willow-400">
+              Teoria
+            </h2>
+          </AccordionTrigger>
           <AccordionContent>
             <p className="my-4">
               W tej części skupimy się na zdaniach, w których podmiotem jest
-              grupa liczebnikowa. To znaczy n.p. zdania typu [
-              <span className="text-gray-400">ile?</span> siedem{" "}
-              <span className="text-gray-400">kto/co?</span> jabłek{" "}
-              <span className="text-gray-400">co (z)robili/(z)robiły?</span>{" "}
-              spadło z drzewa]
+              grupa liczebnikowa. To znaczy np. zdania typu:
             </p>
+
+            <div className="my-4 flex gap-2">
+              <div className="flex flex-col items-center">
+                <div className="px-1 bg-hit-pink-100 text-gray-700 rounded-md text-sm">
+                  ile?
+                </div>
+                <div>trzy</div>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="px-1 bg-hit-pink-100 text-gray-700 rounded-md text-sm">
+                  kto/co?
+                </div>
+                <div>jabłka</div>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="px-1 bg-hit-pink-100 text-gray-700 rounded-md text-sm">
+                  co zrobili/zrobiły?
+                </div>
+                <div>spadły z drzewa</div>
+              </div>
+            </div>
 
             <h3 className="my-4 font-semibold">Inne przykłady takich zdań:</h3>
             <ul className="pl-4 my-4 list-disc">
@@ -66,7 +87,11 @@ export const NumeralsTheory: React.FC = () => {
         </AccordionItem>
 
         <AccordionItem value="russian-problems">
-          <AccordionTrigger>Trudności dla rosyjskojęzycznych</AccordionTrigger>
+          <AccordionTrigger>
+            <h2 className="font-semibold font-mono border-b-2 border-willow-400">
+              Trudności dla rosyjskojęzycznych
+            </h2>
+          </AccordionTrigger>
           <AccordionContent>
             <h3 className="my-4 font-semibold">1. Męskoosobowość:</h3>
 
@@ -172,7 +197,11 @@ export const NumeralsTheory: React.FC = () => {
         </AccordionItem>
 
         <AccordionItem value="exercises">
-          <AccordionTrigger>Opis ćwiczeń</AccordionTrigger>
+          <AccordionTrigger>
+            <h2 className="font-semibold font-mono border-b-2 border-willow-400">
+              Opis ćwiczeń
+            </h2>
+          </AccordionTrigger>
           <AccordionContent>
             <p className="my-4">
               Ćwiczenia polegają na budowaniu zdań w czasie przeszłym z podanej
