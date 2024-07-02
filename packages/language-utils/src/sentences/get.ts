@@ -1,4 +1,4 @@
-import { getNumberFromToken } from "@repo/utils";
+import { getNumberFromToken } from "@mentle/utils";
 import { getSentenceConfig, subjects, verbs } from ".";
 import { toNumeralString } from "../numerals";
 import { NumeralCategory, numeralCategoryConfigs } from "./numeralCategory";

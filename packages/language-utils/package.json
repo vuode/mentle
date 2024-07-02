@@ -1,5 +1,5 @@
 {
-  "name": "@repo/language-utils",
+  "name": "@mentle/language-utils",
   "version": "0.0.0",
   "private": true,
   "exports": {
@@ -13,10 +13,10 @@
     "lint": "echo 'Add lint script here'"
   },
   "dependencies": {
-    "@repo/utils": "*"
+    "@mentle/utils": "*"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*"
+    "@mentle/eslint-config": "*",
+    "@mentle/typescript-config": "*"
   }
 }

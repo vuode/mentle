@@ -1,6 +1,6 @@
 import { useField, FieldInputProps } from "react-final-form";
-import { Input, InputProps } from "@repo/ui/input";
-import { cn } from "@repo/ui/utils";
+import { Input, InputProps } from "@mentle/ui/input";
+import { cn } from "@mentle/ui/utils";
 
 export interface InputFieldProps
   extends Exclude<InputProps, keyof FieldInputProps<string, HTMLElement>> {

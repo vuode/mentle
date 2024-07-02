@@ -1,7 +1,7 @@
 import { Form } from "react-final-form";
 import { shuffle } from "../../utils/shuffle";
-import { numeralCategoryConfigs } from "@repo/language-utils/sentences";
-import { Button } from "@repo/ui/button";
+import { numeralCategoryConfigs } from "@mentle/language-utils/sentences";
+import { Button } from "@mentle/ui/button";
 import { z } from "zod";
 import { NumberInputField } from "../form/NumberInputField";
 import { v4 as uuid } from "uuid";

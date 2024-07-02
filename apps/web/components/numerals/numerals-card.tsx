@@ -1,5 +1,5 @@
-import { generateRandomSentence } from "@repo/language-utils/sentences";
-import { QuizCardContent } from "@repo/ui/quiz-card-content";
+import { generateRandomSentence } from "@mentle/language-utils/sentences";
+import { QuizCardContent } from "@mentle/ui/quiz-card-content";
 
 type Exercise = Exclude<ReturnType<typeof generateRandomSentence>, null>;
 

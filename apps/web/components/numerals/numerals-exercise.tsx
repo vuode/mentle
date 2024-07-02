@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
-import { NumeralCategory, getSentence } from "@repo/language-utils/sentences";
+import { NumeralCategory, getSentence } from "@mentle/language-utils/sentences";
 import { NumeralsCard } from "./numerals-card";
 import { ArrowLeft, Eye } from "lucide-react";
-import { Button } from "@repo/ui/button";
+import { Button } from "@mentle/ui/button";
 import { AnimatePresence } from "framer-motion";
-import { SwipeCard, useSwipeCard } from "@repo/ui/swipe-card";
+import { SwipeCard, useSwipeCard } from "@mentle/ui/swipe-card";
 import { AnswerButton } from "./answer-button";
 import { AnswersCard } from "./answers-card";
 

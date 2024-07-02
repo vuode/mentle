@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionContent,
   AccordionTrigger,
-} from "@repo/ui/accordion";
+} from "@mentle/ui/accordion";
 
 export const NumeralsTheory: React.FC = () => {
   return (

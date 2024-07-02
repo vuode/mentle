@@ -1,4 +1,4 @@
-@import "@repo/ui/styles";
+@import "@mentle/ui/styles";
 
 /* @tailwind base; */
 @tailwind components;

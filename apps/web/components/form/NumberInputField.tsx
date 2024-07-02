@@ -1,6 +1,6 @@
 import { useField, FieldInputProps, useFormState } from "react-final-form";
-import { NumberInput, NumberInputProps } from "@repo/ui/input";
-import { cn } from "@repo/ui/utils";
+import { NumberInput, NumberInputProps } from "@mentle/ui/input";
+import { cn } from "@mentle/ui/utils";
 
 export interface NumberInputFieldProps
   extends Exclude<

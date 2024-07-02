@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@mentle/ui/tabs";
 import { NumeralsConfiguration } from "../../components/numerals/numerals-configuration";
 import { useRouter } from "next/navigation";
 import { NumeralsConfigurationSimple } from "../../components/numerals/numerals-configuration-simple";

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/utils",
+  "name": "@mentle/utils",
   "version": "0.0.0",
   "private": true,
   "module": "./src/index.ts",
@@ -11,8 +11,8 @@
     "lint": "echo 'Add lint script here'"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*"
+    "@mentle/eslint-config": "*",
+    "@mentle/typescript-config": "*"
   },
   "dependencies": {
     "crc-32": "^1.2.2"

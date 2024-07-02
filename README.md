@@ -11,9 +11,9 @@ This repo includes the following packages/apps:
 ### Apps and Packages
 
 - `web`: main [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a React component library
-- `@repo/eslint-config`: `eslint` configurations
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@mentle/ui`: a React component library
+- `@mentle/eslint-config`: `eslint` configurations
+- `@mentle/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
 ### Build
 

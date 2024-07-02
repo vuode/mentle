@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui/button";
-import { cn } from "@repo/ui/utils";
+import { Button } from "@mentle/ui/button";
+import { cn } from "@mentle/ui/utils";
 import { Check, X } from "lucide-react";
 
 interface AnswerButtonProps {

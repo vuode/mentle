@@ -3,8 +3,8 @@ import { shuffle } from "../../utils/shuffle";
 import {
   NumeralCategory,
   numeralCategoryConfigs,
-} from "@repo/language-utils/sentences";
-import { Button } from "@repo/ui/button";
+} from "@mentle/language-utils/sentences";
+import { Button } from "@mentle/ui/button";
 import { z } from "zod";
 import { NumberInputField } from "../form/NumberInputField";
 import { v4 as uuid } from "uuid";

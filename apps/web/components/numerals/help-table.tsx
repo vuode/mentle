@@ -1,4 +1,4 @@
-import { cn } from "@repo/ui/utils";
+import { cn } from "@mentle/ui/utils";
 import { Fragment } from "react";
 
 interface HelpTableCellText {

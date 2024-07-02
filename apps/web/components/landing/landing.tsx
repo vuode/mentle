@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/ui/button";
+import { Button } from "@mentle/ui/button";
 import { ArrowRight } from "lucide-react";
 import HeroIllustration from "~/assets/hero.svg";
 import GithubIcon from "~/assets/github-mark.svg";

@@ -1,5 +1,5 @@
-import { NumeralCategory } from "@repo/language-utils/sentences";
-import { cn } from "@repo/ui/utils";
+import { NumeralCategory } from "@mentle/language-utils/sentences";
+import { cn } from "@mentle/ui/utils";
 
 export type Answer = [NumeralCategory, "right" | "wrong"];
 
